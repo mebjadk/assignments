@@ -8,6 +8,12 @@ root.title("Charles Darwin Quiz App")
 root.geometry("500x800")
 root.configure(bg='blue')
 ##################################################
+#global variable
+global nextQuestion
+nextQuestion =0
+print(type(nextQuestion))
+##########################################
+
 #section for class 
 #Using class to store quiz question. This class store question and its four option and the correct answer as its property.
 class quizquestion:
@@ -28,42 +34,81 @@ question3= quizquestion("When is bilateral relation between Nepal and australia 
 question4= quizquestion("How many Australia States and Territories are there?",'hari','ram','shyam','raju','raju')
 question5= quizquestion("How many  States are there in Nepal?",'hari','ram','shyam','raju','raju')
 question6= quizquestion("Who is Nepal head of state?",'hari','ram','shyam','raju','raju')
-question7= quizquestion("what is your name",'hari','ram','shyam','raju','raju')
-question8= quizquestion("what is your name",'hari','ram','shyam','raju','raju')
-question9= quizquestion("what is your name",'hari','ram','shyam','raju','raju')
-question10= quizquestion("what is your name",'hari','ram','shyam','raju','raju')
+question7= quizquestion("what is your name2",'hari','ram','shyam','raju','raju')
+question8= quizquestion("what is your name1",'hari','ram','shyam','raju','raju')
+question9= quizquestion("what is your name3",'hari','ram','shyam','raju','raju')
+question10= quizquestion("what is your name4",'hari','ram','shyam','raju','raju')
+
+#########preparing for Question Bank#################
+listOfQuestionsBank=[]
+listOfQuestionsBank.append(question0)
+listOfQuestionsBank.append(question1)
+listOfQuestionsBank.append(question2)
+listOfQuestionsBank.append(question3)
+listOfQuestionsBank.append(question4)
+listOfQuestionsBank.append(question5)
+listOfQuestionsBank.append(question6)
+listOfQuestionsBank.append(question7)
+listOfQuestionsBank.append(question8)
+listOfQuestionsBank.append(question9)
+listOfQuestionsBank.append(question10)
+######################
+
+
+###############################
+
+#randomly generation 5 question from list of question bank
+#random question selection from question bank.
+listOfQuestions=[]
+listOfQuestions=random.sample(listOfQuestionsBank,5)
+
+###########################
+
 
 
 #Section for functions
+def changeQuestion():
+    global questionlabel,option1,option2,option3,option4,nextQuestion
+    if(nextQuestion<len(listOfQuestions)-1):
+        nextQuestion+=1
+        print(nextQuestion)
+        questionlabel.config(text=listOfQuestions[nextQuestion].question)
+        option1.config(text=listOfQuestions[nextQuestion].option1)
+        option2.config(text=listOfQuestions[nextQuestion].option2)
+        option3.config(text=listOfQuestions[nextQuestion].option3)
+        option4.config(text=listOfQuestions[nextQuestion].option4)
+    
 def displayQuestion():
+    global questionlabel,option1,option2,option3,option4
     questionlabel = Label(
     root,
-    text =question0.question,
+    text =listOfQuestions[nextQuestion].question,
     font=("",10,"bold"),
     )
     questionlabel.pack(pady=(180,20))
     
     option1 = Button(
     root,
-    text=question0.option1,
+    text=listOfQuestions[nextQuestion].option1,
     height=1,
     width=16,
+    command=changeQuestion,
     )
     option2 = Button(
     root,
-    text=question0.option2,
+    text=listOfQuestions[nextQuestion].option2,
     height=1,
     width=16,
     )
     option3 = Button(
     root,
-    text=question0.option3,
+    text=listOfQuestions[nextQuestion].option3,
     height=1,
     width=16,
     )
     option4 = Button(
     root,
-    text=question0.option4,
+    text=listOfQuestions[nextQuestion].option4,
     height=1,
     width=16,
     )
@@ -72,18 +117,16 @@ def displayQuestion():
     option3.pack(pady=(0,30))
     option4.pack()
 
+##Function to clear the landing page 
 def startGame():
+    global questionlabel,option1,option2,option3,option4,nextQuestion
     inputtxt.destroy()
     labeltext.destroy()
     labelimage.destroy()
     userName.destroy()
     btnStart.destroy()
-    displayQuestion()
     root.configure(bg='grey')
-
-#Logo  charlesDarwin university for attractive front end
-#Disclaimer Logo are used form following site
-#www.pngtree.com
+    displayQuestion()
 charlesDarwinImage=PhotoImage(file="charlesDarwin.png")
 global labelimage
 global labeltext
@@ -132,20 +175,9 @@ btnStart = Button(
     command=startGame,
 )
 btnStart.pack(pady=20)
+
 root.mainloop()
 # #creating a list of objects of question so it can easily accessed when necessary
-# listOfQuestionsBank=[]
-# listOfQuestionsBank.append(question0)
-# listOfQuestionsBank.append(question1)
-# listOfQuestionsBank.append(question2)
-# listOfQuestionsBank.append(question3)
-# listOfQuestionsBank.append(question4)
-# listOfQuestionsBank.append(question5)
-# listOfQuestionsBank.append(question6)
-# listOfQuestionsBank.append(question7)
-# listOfQuestionsBank.append(question8)
-# listOfQuestionsBank.append(question9)
-# listOfQuestionsBank.append(question10)
 
 
 # #scoreCounter is to measure the score of the students.
